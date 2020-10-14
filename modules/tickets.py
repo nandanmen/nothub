@@ -14,7 +14,11 @@ def add_ticket(issue):
     number = issue["number"]
 
     ticket = db.collection.add_row()
-    ticket.status = "Backlog"
-    ticket.title = f"#{number} {title}"
     ticket.assign = list(map(lambda assignee: get_user(
         client, assignee["login"]), issue["assignees"]))
+
+    if (len(ticket.assign) > 0):
+        ticket.status = 'Not started'
+    else:
+        ticket.status = 'Backlog'
+    ticket.title = f"#{number} {title}"

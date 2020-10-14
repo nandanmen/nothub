@@ -7,6 +7,8 @@ Currently **(Oct 12 2020)**, this project does one thing only: create a new Noti
 The following features are on the roadmap:
 
 - Synchronize issues with page properties, e.g. assignees, labels, etc.
+  - [X] Assignees 
+  - [ ] Labels
 - Move tickets around as GitHub triggers occur (e.g. move the ticket to "Completed" when a PR is merged)
 
 ## Getting Started

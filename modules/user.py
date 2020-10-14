@@ -1,6 +1,6 @@
 import json
 
-with open("../users.json") as file:
+with open("users.json") as file:
     users = json.load(file)
 
 

@@ -12,12 +12,6 @@ def hello():
 
 @app.route('/ticket', methods=['POST'])
 def handleTicket():
-    app.logger.info("POST ticket")
-    app.logger.info({
-        "action": request.json["action"],
-        "issue": request.json["issue"]
-    })
-
     if request.json["action"] == "opened":
         tickets.add_ticket(request.json["issue"])
 

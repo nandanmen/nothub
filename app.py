@@ -16,6 +16,3 @@ def handleTicket():
         tickets.add_ticket(request.json["issue"])
 
     return ("", 204)
-
-
-app.run()

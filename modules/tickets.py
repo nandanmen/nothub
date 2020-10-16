@@ -1,15 +1,13 @@
 import os
 from .user import get_user
 from notion.client import NotionClient
-from dotenv import load_dotenv
-load_dotenv()
 
 
-client = NotionClient(token_v2=os.getenv("TOKEN_V2"))
+client = NotionClient(token_v2=os.environ.get("TOKEN_V2"))
 
 
 def add_ticket(issue):
-    db = client.get_collection_view(os.getenv("COLLECTION"))
+    db = client.get_collection_view(os.environ.get("COLLECTION"))
     title = issue["title"]
     number = issue["number"]
 

@@ -1,5 +1,6 @@
 from flask import Flask, request
 
+from modules.action import Action, get_action
 import modules.tickets as tickets
 from modules.util import validate_signature
 
@@ -17,7 +18,9 @@ def main():
     if not validate_signature():
         return ("SHA didn't match", 401)
 
-    if request.json["action"] == "opened":
+    action = get_action()
+
+    if action == Action.AddTicket:
         tickets.add_ticket(request.json["issue"])
 
     return ("", 204)

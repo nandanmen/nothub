@@ -1,6 +1,5 @@
 from flask import Flask, request
 import modules.tickets as tickets
-import modules.user as users
 
 app = Flask(__name__)
 app.config["DEBUG"] = True

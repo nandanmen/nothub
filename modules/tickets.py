@@ -1,14 +1,12 @@
-import os
 from .user import get_user
-from .client import client
+from .client import board
 
 
 def add_ticket(issue):
-    db = client.get_collection_view(os.environ.get("COLLECTION"))
     title = issue["title"]
     number = issue["number"]
 
-    ticket = db.collection.add_row()
+    ticket = board.collection.add_row()
 
     assigned = []
     for assignee in issue["assignees"]:

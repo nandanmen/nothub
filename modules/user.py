@@ -3,8 +3,7 @@
 with open("users.json") as file:
     users = json.load(file) """
 
-import os
-from .client import client
+from .client import client, board
 
 
 users = {
@@ -28,8 +27,7 @@ def get_user(login):
 
 
 def get_users():
-    db = client.get_collection_view(os.environ.get("COLLECTION"))
-    result = db.default_query().execute()
+    result = board.default_query().execute()
 
     users = {}
     for row in result:

@@ -1,5 +1,7 @@
 from flask import Flask, request
+
 import modules.tickets as tickets
+from modules.util import validate_signature
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -11,7 +13,10 @@ def hello():
 
 
 @app.route('/ticket', methods=['POST'])
-def handleTicket():
+def main():
+    if not validate_signature():
+        return ("SHA didn't match", 401)
+
     if request.json["action"] == "opened":
         tickets.add_ticket(request.json["issue"])
 

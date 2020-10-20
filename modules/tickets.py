@@ -1,9 +1,6 @@
 import os
 from .user import get_user
-from notion.client import NotionClient
-
-
-client = NotionClient(token_v2=os.environ.get("TOKEN_V2"))
+from .client import client
 
 
 def add_ticket(issue):
@@ -12,8 +9,14 @@ def add_ticket(issue):
     number = issue["number"]
 
     ticket = db.collection.add_row()
-    ticket.assign = list(map(lambda assignee: get_user(
-        client, assignee["login"]), issue["assignees"]))
+
+    assigned = []
+    for assignee in issue["assignees"]:
+        user = get_user(assignee["login"])
+        if user:
+            assigned.append(user)
+
+    ticket.assign = assigned
 
     if (len(ticket.assign) > 0):
         ticket.status = 'Not started'

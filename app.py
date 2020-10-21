@@ -1,8 +1,8 @@
 from flask import Flask, request
 
-from modules.action import Action, get_action
-import modules.tickets as tickets
+from modules.action import Action, parse
 from modules.util import validate_signature
+import modules.tickets as tickets
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -18,13 +18,11 @@ def main():
     if not validate_signature():
         return ("SHA didn't match", 401)
 
-    action = get_action()
+    action, ticket_number = parse()
 
     if action == Action.AddTicket:
         tickets.add_ticket(request.json["issue"])
     elif action in [Action.InProgress, Action.Review, Action.Close]:
-        ticket_number = tickets.get_ticket_number(action)
-        if ticket_number is not None:
-            tickets.update_ticket(ticket_number, action)
+        tickets.update_ticket(ticket_number, action)
 
     return ("", 204)

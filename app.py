@@ -10,7 +10,7 @@ app.config["DEBUG"] = True
 
 @app.route('/', methods=['GET'])
 def hello():
-    return "Hello from the Notion integration!"
+    return "Hello from notion integration!"
 
 
 @app.route('/ticket', methods=['POST'])
@@ -22,5 +22,9 @@ def main():
 
     if action == Action.AddTicket:
         tickets.add_ticket(request.json["issue"])
+    elif action in [Action.InProgress, Action.Review, Action.Close]:
+        ticket_number = tickets.get_ticket_number(action)
+        if ticket_number is not None:
+            tickets.update_ticket(ticket_number, action)
 
     return ("", 204)

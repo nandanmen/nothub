@@ -13,6 +13,8 @@ The following features are on the roadmap:
 
 ## Getting Started
 
+> TODO: Update this to be more clear
+
 1. Clone the repo
 2. Install dependencies
 3. Add `.env`

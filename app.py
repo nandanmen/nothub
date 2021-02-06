@@ -1,4 +1,5 @@
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 
 from modules.action import Action, parse
 from modules.util import validate_signature
@@ -7,6 +8,8 @@ import modules.tickets as tickets
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route('/', methods=['GET'])
@@ -30,6 +33,7 @@ def main():
 
 
 @app.route('/feedback', methods=['POST'])
+@cross_origin()
 def addFeedback():
     feedback = board.collection.add_row()
     body = request.json
